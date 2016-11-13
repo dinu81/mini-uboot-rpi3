@@ -8,7 +8,7 @@
 ifndef CONFIG_SPL_BUILD
 # core command
 obj-y += boot.o
-obj-$(CONFIG_CMD_BOOTM) += bootm.o
+#obj-$(CONFIG_CMD_BOOTM) += bootm.o
 obj-y += help.o
 obj-y += version.o
 
@@ -144,7 +144,7 @@ obj-$(CONFIG_CMD_FS_UUID) += fs_uuid.o
 
 obj-$(CONFIG_CMD_USB_MASS_STORAGE) += usb_mass_storage.o
 obj-$(CONFIG_CMD_THOR_DOWNLOAD) += thordown.o
-obj-$(CONFIG_CMD_XIMG) += ximg.o
+#obj-$(CONFIG_CMD_XIMG) += ximg.o
 obj-$(CONFIG_YAFFS2) += yaffs2.o
 obj-$(CONFIG_CMD_SPL) += spl.o
 obj-$(CONFIG_CMD_ZIP) += zip.o
