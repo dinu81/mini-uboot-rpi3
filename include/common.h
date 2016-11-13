@@ -913,7 +913,11 @@ int zzip(void *dst, unsigned long *lenp, unsigned char *src,
 #include <net.h>
 static inline struct in_addr getenv_ip(char *var)
 {
+    struct in_addr b;
+    return b;
+#if 0
 	return string_to_ip(getenv(var));
+#endif 
 }
 
 int	pcmcia_init (void);
