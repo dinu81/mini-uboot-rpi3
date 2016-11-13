@@ -43,7 +43,7 @@ envcrc-objs := envcrc.o lib/crc32.o common/env_embedded.o lib/sha1.o
 hostprogs-$(CONFIG_CMD_NET) += gen_eth_addr
 HOSTCFLAGS_gen_eth_addr.o := -pedantic
 
-hostprogs-$(CONFIG_CMD_LOADS) += img2srec
+#hostprogs-$(CONFIG_CMD_LOADS) += img2srec
 HOSTCFLAGS_img2srec.o := -pedantic
 
 hostprogs-$(CONFIG_XWAY_SWAP_BYTES) += xway-swap-bytes
@@ -181,7 +181,7 @@ HOSTCFLAGS_ubsha1.o := -pedantic
 
 hostprogs-$(CONFIG_KIRKWOOD) += kwboot
 hostprogs-$(CONFIG_ARCH_MVEBU) += kwboot
-hostprogs-y += proftool
+#hostprogs-y += proftool
 hostprogs-$(CONFIG_STATIC_RELA) += relocate-rela
 
 #hostprogs-y += fdtgrep
