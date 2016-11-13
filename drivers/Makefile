@@ -57,27 +57,27 @@ endif
 
 ifeq ($(CONFIG_SPL_BUILD)$(CONFIG_TPL_BUILD),)
 
-obj-y += adc/
+#obj-y += adc/
 obj-$(CONFIG_DM_DEMO) += demo/
 obj-$(CONFIG_BIOSEMU) += bios_emulator/
 obj-y += block/
 obj-$(CONFIG_BOOTCOUNT_LIMIT) += bootcount/
 obj-$(CONFIG_CPU) += cpu/
-obj-y += crypto/
+#obj-y += crypto/
 obj-$(CONFIG_FPGA) += fpga/
-obj-y += hwmon/
+#obj-y += hwmon/
 obj-y += misc/
-obj-y += pcmcia/
-obj-y += dfu/
+#obj-y += pcmcia/
+#obj-y += dfu/
 obj-$(CONFIG_X86) += pch/
-obj-y += phy/marvell/
-obj-y += rtc/
-obj-y += sound/
-obj-y += spmi/
+#obj-y += phy/marvell/
+#obj-y += rtc/
+#obj-y += sound/
+#obj-y += spmi/
 obj-y += sysreset/
 obj-y += timer/
-obj-y += tpm/
-obj-y += twserial/
+#obj-y += tpm/
+#obj-y += twserial/
 obj-y += video/
 obj-y += watchdog/
 obj-$(CONFIG_QE) += qe/
@@ -86,11 +86,11 @@ obj-y += mailbox/
 obj-y += memory/
 obj-y += pwm/
 obj-y += reset/
-obj-y += input/
+#obj-y += input/
 # SOC specific infrastructure drivers.
 obj-y += soc/
 obj-$(CONFIG_REMOTEPROC) += remoteproc/
-obj-y += thermal/
+#obj-y += thermal/
 
-obj-$(CONFIG_MACH_PIC32) += ddr/microchip/
+#obj-$(CONFIG_MACH_PIC32) += ddr/microchip/
 endif
