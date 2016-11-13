@@ -521,6 +521,7 @@ enum command_ret_t cmd_process(int flag, int argc, char * const argv[],
 		rc = CMD_RET_USAGE;
 
 #if defined(CONFIG_CMD_BOOTD)
+#if 0
 	/* avoid "bootd" recursion */
 	else if (cmdtp->cmd == do_bootd) {
 		if (flag & CMD_FLAG_BOOTD) {
@@ -530,6 +531,7 @@ enum command_ret_t cmd_process(int flag, int argc, char * const argv[],
 			flag |= CMD_FLAG_BOOTD;
 		}
 	}
+#endif
 #endif
 
 	/* If OK so far, then do the command */
