@@ -97,16 +97,16 @@ obj-$(CONFIG_CMD_MMC_SPI) += mmc_spi.o
 obj-$(CONFIG_MP) += mp.o
 obj-$(CONFIG_CMD_MTDPARTS) += mtdparts.o
 obj-$(CONFIG_CMD_NAND) += nand.o
-obj-$(CONFIG_CMD_NET) += net.o
+#obj-$(CONFIG_CMD_NET) += net.o
 obj-$(CONFIG_CMD_ONENAND) += onenand.o
 obj-$(CONFIG_CMD_OTP) += otp.o
 obj-$(CONFIG_CMD_PART) += part.o
 ifdef CONFIG_PCI
-obj-$(CONFIG_CMD_PCI) += pci.o
+#obj-$(CONFIG_CMD_PCI) += pci.o
 endif
-obj-y += pcmcia.o
-obj-$(CONFIG_CMD_PORTIO) += portio.o
-obj-$(CONFIG_CMD_PXE) += pxe.o
+#obj-y += pcmcia.o
+#obj-$(CONFIG_CMD_PORTIO) += portio.o
+#obj-$(CONFIG_CMD_PXE) += pxe.o
 obj-$(CONFIG_CMD_QFW) += qfw.o
 obj-$(CONFIG_CMD_READ) += read.o
 obj-$(CONFIG_CMD_REGINFO) += reginfo.o
