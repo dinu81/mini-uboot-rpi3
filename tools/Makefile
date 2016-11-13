@@ -49,10 +49,10 @@ HOSTCFLAGS_img2srec.o := -pedantic
 hostprogs-$(CONFIG_XWAY_SWAP_BYTES) += xway-swap-bytes
 HOSTCFLAGS_xway-swap-bytes.o := -pedantic
 
-hostprogs-y += mkenvimage
+#hostprogs-y += mkenvimage
 mkenvimage-objs := mkenvimage.o os_support.o lib/crc32.o
 
-hostprogs-y += dumpimage mkimage
+#hostprogs-y += dumpimage mkimage
 hostprogs-$(CONFIG_FIT_SIGNATURE) += fit_info fit_check_sign
 
 FIT_SIG_OBJS-$(CONFIG_FIT_SIGNATURE) := common/image-sig.o
@@ -67,7 +67,7 @@ RSA_OBJS-$(CONFIG_FIT_SIGNATURE) := $(addprefix lib/rsa/, \
 ROCKCHIP_OBS = lib/rc4.o rkcommon.o rkimage.o rksd.o rkspi.o
 
 # common objs for dumpimage and mkimage
-dumpimage-mkimage-objs := aisimage.o \
+#dumpimage-mkimage-objs := aisimage.o \
 			atmelimage.o \
 			$(FIT_SIG_OBJS-y) \
 			common/bootm.o \
@@ -104,10 +104,10 @@ dumpimage-mkimage-objs := aisimage.o \
 			gpimage-common.o \
 			$(RSA_OBJS-y)
 
-dumpimage-objs := $(dumpimage-mkimage-objs) dumpimage.o
-mkimage-objs   := $(dumpimage-mkimage-objs) mkimage.o
-fit_info-objs   := $(dumpimage-mkimage-objs) fit_info.o
-fit_check_sign-objs   := $(dumpimage-mkimage-objs) fit_check_sign.o
+#dumpimage-objs := $(dumpimage-mkimage-objs) dumpimage.o
+#mkimage-objs   := $(dumpimage-mkimage-objs) mkimage.o
+#fit_info-objs   := $(dumpimage-mkimage-objs) fit_info.o
+#fit_check_sign-objs   := $(dumpimage-mkimage-objs) fit_check_sign.o
 
 # Build a libfdt Python module if swig is available
 # Use 'sudo apt-get install swig libpython-dev' to enable this
