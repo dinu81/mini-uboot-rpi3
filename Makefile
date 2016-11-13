@@ -630,30 +630,30 @@ libs-y += lib/
 libs-$(HAVE_VENDOR_COMMON_LIB) += board/$(VENDOR)/common/
 libs-$(CONFIG_OF_EMBED) += dts/
 libs-y += fs/
-libs-y += net/
+#libs-y += net/
 libs-y += disk/
 libs-y += drivers/
 libs-y += drivers/dma/
 libs-y += drivers/gpio/
-libs-y += drivers/i2c/
+#libs-y += drivers/i2c/
 libs-y += drivers/mmc/
-libs-y += drivers/mtd/
+#libs-y += drivers/mtd/
 libs-$(CONFIG_CMD_NAND) += drivers/mtd/nand/
 libs-y += drivers/mtd/onenand/
 libs-$(CONFIG_CMD_UBI) += drivers/mtd/ubi/
 libs-y += drivers/mtd/spi/
-libs-y += drivers/net/
-libs-y += drivers/net/phy/
-libs-y += drivers/pci/
-libs-y += drivers/power/ \
+#libs-y += drivers/net/
+#libs-y += drivers/net/phy/
+#libs-y += drivers/pci/
+#libs-y += drivers/power/ \
 	drivers/power/domain/ \
 	drivers/power/fuel_gauge/ \
 	drivers/power/mfd/ \
 	drivers/power/pmic/ \
 	drivers/power/battery/ \
 	drivers/power/regulator/
-libs-y += drivers/spi/
-libs-$(CONFIG_FMAN_ENET) += drivers/net/fm/
+#libs-y += drivers/spi/
+#libs-$(CONFIG_FMAN_ENET) += drivers/net/fm/
 libs-$(CONFIG_SYS_FSL_DDR) += drivers/ddr/fsl/
 libs-$(CONFIG_SYS_FSL_MMDC) += drivers/ddr/fsl/
 libs-$(CONFIG_ALTERA_SDRAM) += drivers/ddr/altera/
