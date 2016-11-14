@@ -15,10 +15,11 @@
 
 int display_options (void)
 {
+    char *version = "1.0";
 #if defined(BUILD_TAG)
-	printf ("\n\n%s, Build: %s\n\n", version_string, BUILD_TAG);
+	printf ("\n\n%s, Build: %s\n\n", version, BUILD_TAG);
 #else
-	printf ("\n\n%s\n\n", version_string);
+	printf ("\n\n%s\n\n", version);
 #endif
 	return 0;
 }
