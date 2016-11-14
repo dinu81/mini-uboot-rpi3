@@ -35,6 +35,7 @@ int env_init(void)
 }
 
 #ifdef CONFIG_CMD_SAVEENV
+#if 0
 int saveenv(void)
 {
 	env_t	env_new;
@@ -72,6 +73,7 @@ int saveenv(void)
 	puts("done\n");
 	return 0;
 }
+#endif
 #endif /* CONFIG_CMD_SAVEENV */
 
 void env_relocate_spec(void)
