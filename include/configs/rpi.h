@@ -126,7 +126,9 @@
 #define CONFIG_FAT_WRITE
 #define CONFIG_ENV_VARS_UBOOT_CONFIG
 #define CONFIG_SYS_LOAD_ADDR		0x1000000
+#if 0
 #define CONFIG_PREBOOT			"usb start"
+#endif 
 
 /* Shell */
 #define CONFIG_SYS_MAXARGS		16
