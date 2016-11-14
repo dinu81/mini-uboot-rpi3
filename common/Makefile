@@ -67,7 +67,7 @@ endif
 # others
 obj-$(CONFIG_BOOTSTAGE) += bootstage.o
 obj-$(CONFIG_CONSOLE_MUX) += iomux.o
-obj-y += flash.o
+#obj-y += flash.o
 obj-$(CONFIG_CMD_KGDB) += kgdb.o kgdb_stubs.o
 obj-$(CONFIG_I2C_EDID) += edid.o
 obj-$(CONFIG_KALLSYMS) += kallsyms.o
@@ -93,7 +93,7 @@ obj-$(CONFIG_SPL_DFU_SUPPORT) += dfu.o
 obj-$(CONFIG_SPL_DFU_SUPPORT) += cli_hush.o
 obj-$(CONFIG_SPL_HASH_SUPPORT) += hash.o
 obj-$(CONFIG_ENV_IS_IN_FLASH) += env_flash.o
-obj-$(CONFIG_SPL_YMODEM_SUPPORT) += xyzModem.o
+#obj-$(CONFIG_SPL_YMODEM_SUPPORT) += xyzModem.o
 obj-$(CONFIG_SPL_NET_SUPPORT) += miiphyutil.o
 obj-$(CONFIG_SPL_OF_TRANSLATE) += fdt_support.o
 ifdef CONFIG_SPL_USB_HOST_SUPPORT
@@ -175,7 +175,7 @@ obj-y += cli.o
 obj-$(CONFIG_CMDLINE) += cli_readline.o
 obj-$(CONFIG_CMD_DFU) += dfu.o
 obj-y += command.o
-obj-y += s_record.o
-obj-y += xyzModem.o
+#obj-y += s_record.o
+#obj-y += xyzModem.o
 
 CFLAGS_env_embedded.o := -Wa,--no-warn -DENV_CRC=$(shell tools/envcrc 2>/dev/null)

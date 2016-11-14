@@ -136,10 +136,12 @@
 #define CONFIG_PARTITION_UUIDS
 #define CONFIG_CMD_PART
 
+#if 0
 /* ATAGs support for bootm/bootz */
 #define CONFIG_SETUP_MEMORY_TAGS
 #define CONFIG_CMDLINE_TAG
 #define CONFIG_INITRD_TAG
+#endif 
 
 #include <config_distro_defaults.h>
 
