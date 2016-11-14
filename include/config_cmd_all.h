@@ -13,6 +13,8 @@
  * Alphabetical list of all possible commands.
  */
 
+#undef CONFIG_CMD_ENV_EXISTS
+#if 0
 #define CONFIG_CMD_BEDBUG	/* Include BedBug Debugger	*/
 #define CONFIG_CMD_BMP		/* BMP support			*/
 #define CONFIG_CMD_BSP		/* Board Specific functions	*/
@@ -52,5 +54,6 @@
 #define CONFIG_CMD_UNIVERSE	/* Tundra Universe Support	*/
 #define CONFIG_CMD_UNZIP	/* unzip from memory to memory	*/
 #define CONFIG_CMD_ZFS		/* ZFS Support			*/
+#endif 
 
 #endif	/* _CONFIG_CMD_ALL_H */
