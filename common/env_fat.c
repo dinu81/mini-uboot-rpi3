@@ -34,48 +34,6 @@ int env_init(void)
 	return 0;
 }
 
-#ifdef CONFIG_CMD_SAVEENV
-#if 0
-int saveenv(void)
-{
-	env_t	env_new;
-	struct blk_desc *dev_desc = NULL;
-	disk_partition_t info;
-	int dev, part;
-	int err;
-	loff_t size;
-
-	err = env_export(&env_new);
-	if (err)
-		return err;
-
-	part = blk_get_device_part_str(FAT_ENV_INTERFACE,
-					FAT_ENV_DEVICE_AND_PART,
-					&dev_desc, &info, 1);
-	if (part < 0)
-		return 1;
-
-	dev = dev_desc->devnum;
-	if (fat_set_blk_dev(dev_desc, &info) != 0) {
-		printf("\n** Unable to use %s %d:%d for saveenv **\n",
-		       FAT_ENV_INTERFACE, dev, part);
-		return 1;
-	}
-
-	err = file_fat_write(FAT_ENV_FILE, (void *)&env_new, 0, sizeof(env_t),
-			     &size);
-	if (err == -1) {
-		printf("\n** Unable to write \"%s\" from %s%d:%d **\n",
-			FAT_ENV_FILE, FAT_ENV_INTERFACE, dev, part);
-		return 1;
-	}
-
-	puts("done\n");
-	return 0;
-}
-#endif
-#endif /* CONFIG_CMD_SAVEENV */
-
 void env_relocate_spec(void)
 {
 	ALLOC_CACHE_ALIGN_BUFFER(char, buf, CONFIG_ENV_SIZE);
