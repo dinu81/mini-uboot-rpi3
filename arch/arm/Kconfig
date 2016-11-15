@@ -883,11 +883,6 @@ source "arch/arm/cpu/armv7/Kconfig"
 
 source "arch/arm/cpu/armv8/Kconfig"
 
-source "board/broadcom/bcm23550_w1d/Kconfig"
-source "board/broadcom/bcm28155_ap/Kconfig"
-source "board/broadcom/bcmcygnus/Kconfig"
-source "board/broadcom/bcmnsp/Kconfig"
-
 source "arch/arm/Kconfig.debug"
 
 endmenu

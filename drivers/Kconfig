@@ -8,15 +8,7 @@ source "drivers/block/Kconfig"
 
 source "drivers/cpu/Kconfig"
 
-source "drivers/dfu/Kconfig"
-
-source "drivers/dma/Kconfig"
-
 source "drivers/gpio/Kconfig"
-
-source "drivers/hwmon/Kconfig"
-
-source "drivers/i2c/Kconfig"
 
 source "drivers/input/Kconfig"
 
@@ -24,25 +16,9 @@ source "drivers/mailbox/Kconfig"
 
 source "drivers/memory/Kconfig"
 
-source "drivers/misc/Kconfig"
-
-source "drivers/mmc/Kconfig"
-
-source "drivers/pinctrl/Kconfig"
-
-source "drivers/power/Kconfig"
-
 source "drivers/ram/Kconfig"
 
-source "drivers/remoteproc/Kconfig"
-
 source "drivers/serial/Kconfig"
-
-source "drivers/sysreset/Kconfig"
-
-source "drivers/timer/Kconfig"
-
-source "drivers/usb/Kconfig"
 
 source "drivers/video/Kconfig"
 
