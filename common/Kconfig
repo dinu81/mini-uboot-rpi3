@@ -383,4 +383,3 @@ config DISPLAY_BOARDINFO
 	  when U-Boot starts up. The board function checkboard() is called
 	  to do this.
 
-source "common/spl/Kconfig"
