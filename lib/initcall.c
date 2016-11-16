@@ -4,9 +4,12 @@
  * SPDX-License-Identifier:	GPL-2.0+
  */
 
+#define DEBUG 1
+
 #include <common.h>
 #include <initcall.h>
 #include <efi.h>
+
 
 DECLARE_GLOBAL_DATA_PTR;
 

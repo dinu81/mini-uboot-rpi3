@@ -51,6 +51,7 @@ void main_loop(void)
 	setenv("ver", version_string);  /* set version variable */
 #endif /* CONFIG_VERSION_VARIABLE */
 
+
 	cli_init();
 
 	run_preboot_environment_command();

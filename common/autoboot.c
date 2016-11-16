@@ -20,189 +20,13 @@ DECLARE_GLOBAL_DATA_PTR;
 #define MAX_DELAY_STOP_STR 32
 
 #ifndef DEBUG_BOOTKEYS
-#define DEBUG_BOOTKEYS 0
+#define DEBUG_BOOTKEYS 1
 #endif
 #define debug_bootkeys(fmt, args...)		\
 	debug_cond(DEBUG_BOOTKEYS, fmt, ##args)
 
 /* Stored value of bootdelay, used by autoboot_command() */
 static int stored_bootdelay;
-
-#if defined(CONFIG_AUTOBOOT_KEYED)
-#if defined(CONFIG_AUTOBOOT_STOP_STR_SHA256)
-
-/*
- * Use a "constant-length" time compare function for this
- * hash compare:
- *
- * https://crackstation.net/hashing-security.htm
- */
-static int slow_equals(u8 *a, u8 *b, int len)
-{
-	int diff = 0;
-	int i;
-
-	for (i = 0; i < len; i++)
-		diff |= a[i] ^ b[i];
-
-	return diff == 0;
-}
-
-static int passwd_abort(uint64_t etime)
-{
-	const char *sha_env_str = getenv("bootstopkeysha256");
-	u8 sha_env[SHA256_SUM_LEN];
-	u8 sha[SHA256_SUM_LEN];
-	char presskey[MAX_DELAY_STOP_STR];
-	const char *algo_name = "sha256";
-	u_int presskey_len = 0;
-	int abort = 0;
-	int size;
-	int ret;
-
-	if (sha_env_str == NULL)
-		sha_env_str = CONFIG_AUTOBOOT_STOP_STR_SHA256;
-
-	/*
-	 * Generate the binary value from the environment hash value
-	 * so that we can compare this value with the computed hash
-	 * from the user input
-	 */
-	ret = hash_parse_string(algo_name, sha_env_str, sha_env);
-	if (ret) {
-		printf("Hash %s not supported!\n", algo_name);
-		return 0;
-	}
-
-	/*
-	 * We don't know how long the stop-string is, so we need to
-	 * generate the sha256 hash upon each input character and
-	 * compare the value with the one saved in the environment
-	 */
-	do {
-		if (tstc()) {
-			/* Check for input string overflow */
-			if (presskey_len >= MAX_DELAY_STOP_STR)
-				return 0;
-
-			presskey[presskey_len++] = getc();
-
-			/* Calculate sha256 upon each new char */
-			hash_block(algo_name, (const void *)presskey,
-				   presskey_len, sha, &size);
-
-			/* And check if sha matches saved value in env */
-			if (slow_equals(sha, sha_env, SHA256_SUM_LEN))
-				abort = 1;
-		}
-	} while (!abort && get_ticks() <= etime);
-
-	return abort;
-}
-#else
-static int passwd_abort(uint64_t etime)
-{
-	int abort = 0;
-	struct {
-		char *str;
-		u_int len;
-		int retry;
-	}
-	delaykey[] = {
-		{ .str = getenv("bootdelaykey"),  .retry = 1 },
-		{ .str = getenv("bootstopkey"),   .retry = 0 },
-	};
-
-	char presskey[MAX_DELAY_STOP_STR];
-	u_int presskey_len = 0;
-	u_int presskey_max = 0;
-	u_int i;
-
-#  ifdef CONFIG_AUTOBOOT_DELAY_STR
-	if (delaykey[0].str == NULL)
-		delaykey[0].str = CONFIG_AUTOBOOT_DELAY_STR;
-#  endif
-#  ifdef CONFIG_AUTOBOOT_STOP_STR
-	if (delaykey[1].str == NULL)
-		delaykey[1].str = CONFIG_AUTOBOOT_STOP_STR;
-#  endif
-
-	for (i = 0; i < sizeof(delaykey) / sizeof(delaykey[0]); i++) {
-		delaykey[i].len = delaykey[i].str == NULL ?
-				    0 : strlen(delaykey[i].str);
-		delaykey[i].len = delaykey[i].len > MAX_DELAY_STOP_STR ?
-				    MAX_DELAY_STOP_STR : delaykey[i].len;
-
-		presskey_max = presskey_max > delaykey[i].len ?
-				    presskey_max : delaykey[i].len;
-
-		debug_bootkeys("%s key:<%s>\n",
-			       delaykey[i].retry ? "delay" : "stop",
-			       delaykey[i].str ? delaykey[i].str : "NULL");
-	}
-
-	/* In order to keep up with incoming data, check timeout only
-	 * when catch up.
-	 */
-	do {
-		if (tstc()) {
-			if (presskey_len < presskey_max) {
-				presskey[presskey_len++] = getc();
-			} else {
-				for (i = 0; i < presskey_max - 1; i++)
-					presskey[i] = presskey[i + 1];
-
-				presskey[i] = getc();
-			}
-		}
-
-		for (i = 0; i < sizeof(delaykey) / sizeof(delaykey[0]); i++) {
-			if (delaykey[i].len > 0 &&
-			    presskey_len >= delaykey[i].len &&
-				memcmp(presskey + presskey_len -
-					delaykey[i].len, delaykey[i].str,
-					delaykey[i].len) == 0) {
-					debug_bootkeys("got %skey\n",
-						delaykey[i].retry ? "delay" :
-						"stop");
-
-				/* don't retry auto boot */
-				if (!delaykey[i].retry)
-					bootretry_dont_retry();
-				abort = 1;
-			}
-		}
-	} while (!abort && get_ticks() <= etime);
-
-	return abort;
-}
-#endif
-
-/***************************************************************************
- * Watch for 'delay' seconds for autoboot stop or autoboot delay string.
- * returns: 0 -  no key string, allow autoboot 1 - got key string, abort
- */
-static int __abortboot(int bootdelay)
-{
-	int abort;
-	uint64_t etime = endtick(bootdelay);
-
-#  ifdef CONFIG_AUTOBOOT_PROMPT
-	/*
-	 * CONFIG_AUTOBOOT_PROMPT includes the %d for all boards.
-	 * To print the bootdelay value upon bootup.
-	 */
-	printf(CONFIG_AUTOBOOT_PROMPT, bootdelay);
-#  endif
-
-	abort = passwd_abort(etime);
-	if (!abort)
-		debug_bootkeys("key timeout\n");
-
-	return abort;
-}
-
-# else	/* !defined(CONFIG_AUTOBOOT_KEYED) */
 
 #ifdef CONFIG_MENUKEY
 static int menukey;
@@ -213,11 +37,7 @@ static int __abortboot(int bootdelay)
 	int abort = 0;
 	unsigned long ts;
 
-#ifdef CONFIG_MENUPROMPT
-	printf(CONFIG_MENUPROMPT);
-#else
 	printf("Hit any key to stop autoboot: %2d ", bootdelay);
-#endif
 
 	/*
 	 * Check if key already pressed
@@ -253,7 +73,6 @@ static int __abortboot(int bootdelay)
 
 	return abort;
 }
-# endif	/* CONFIG_AUTOBOOT_KEYED */
 
 static int abortboot(int bootdelay)
 {
@@ -348,18 +167,11 @@ void autoboot_command(const char *s)
 		int prev = disable_ctrlc(1);	/* disable Control C checking */
 #endif
 
-		run_command_list(s, -1, 0);
+		//run_command_list(s, -1, 0);
+        printf ("Dinesh: Autoboot disabled\n");
 
 #if defined(CONFIG_AUTOBOOT_KEYED) && !defined(CONFIG_AUTOBOOT_KEYED_CTRLC)
 		disable_ctrlc(prev);	/* restore Control C checking */
 #endif
 	}
-
-#ifdef CONFIG_MENUKEY
-	if (menukey == CONFIG_MENUKEY) {
-		s = getenv("menucmd");
-		if (s)
-			run_command_list(s, -1, 0);
-	}
-#endif /* CONFIG_MENUKEY */
 }
