@@ -109,7 +109,9 @@
 #else
 #define CONFIG_PL01X_SERIAL
 #endif
+#if 0
 #define CONFIG_CONS_INDEX		0
+#endif 
 #define CONFIG_BAUDRATE			115200
 
 /* Console configuration */
