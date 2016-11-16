@@ -214,15 +214,7 @@ err:
 
 void cli_loop(void)
 {
-#ifdef CONFIG_HUSH_PARSER
-	parse_file_outer();
-	/* This point is never reached */
-	for (;;);
-#elif defined(CONFIG_CMDLINE)
 	cli_simple_loop();
-#else
-	printf("## U-Boot command line is disabled. Please enable CONFIG_CMDLINE\n");
-#endif /*CONFIG_HUSH_PARSER*/
 }
 
 void cli_init(void)

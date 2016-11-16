@@ -51,14 +51,7 @@ void main_loop(void)
 	setenv("ver", version_string);  /* set version variable */
 #endif /* CONFIG_VERSION_VARIABLE */
 
-
-	cli_init();
-
 	run_preboot_environment_command();
-
-#if defined(CONFIG_UPDATE_TFTP)
-	update_tftp(0UL, NULL, NULL);
-#endif /* CONFIG_UPDATE_TFTP */
 
 	s = bootdelay_process();
 	if (cli_process_fdt(&s))
@@ -66,6 +59,6 @@ void main_loop(void)
 
 	autoboot_command(s);
 
-	cli_loop();
-	panic("No CLI available");
+    printf ("Dinesh: We will wait here\n");
+    for (;;);
 }
