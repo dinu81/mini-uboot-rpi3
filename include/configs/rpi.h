@@ -83,11 +83,13 @@
 #define CONFIG_SYS_WHITE_ON_BLACK
 
 /* SD/MMC configuration */
+#if 0
 #define CONFIG_GENERIC_MMC
 #define CONFIG_MMC
 #define CONFIG_SDHCI
 #define CONFIG_MMC_SDHCI_IO_ACCESSORS
 #define CONFIG_BCM2835_SDHCI
+#endif 
 
 #ifdef CONFIG_CMD_USB
 #define CONFIG_USB_DWC2

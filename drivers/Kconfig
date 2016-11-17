@@ -4,20 +4,6 @@ source "drivers/core/Kconfig"
 
 # types of drivers sorted in alphabetical order
 
-source "drivers/block/Kconfig"
-
-source "drivers/cpu/Kconfig"
-
-source "drivers/gpio/Kconfig"
-
-source "drivers/input/Kconfig"
-
-source "drivers/mailbox/Kconfig"
-
-source "drivers/memory/Kconfig"
-
-source "drivers/ram/Kconfig"
-
 source "drivers/serial/Kconfig"
 
 source "drivers/video/Kconfig"
