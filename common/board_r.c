@@ -39,16 +39,7 @@
 #ifdef CONFIG_BITBANGMII
 #include <miiphy.h>
 #endif
-#include <mmc.h>
-#include <nand.h>
-#include <onenand_uboot.h>
-#include <scsi.h>
-#include <serial.h>
-#include <spi.h>
 #include <stdio_dev.h>
-#include <timer.h>
-#include <trace.h>
-#include <watchdog.h>
 #ifdef CONFIG_CMD_AMBAPP
 #include <ambapp.h>
 #endif

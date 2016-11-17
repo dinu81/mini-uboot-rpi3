@@ -10,8 +10,8 @@
 #include <errno.h>
 #include <fdtdec.h>
 #include <os.h>
-#include <serial.h>
 #include <stdio_dev.h>
+#include <serial.h>
 #include <watchdog.h>
 #include <dm/lists.h>
 #include <dm/device-internal.h>

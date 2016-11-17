@@ -58,7 +58,7 @@ ifndef CONFIG_ARM64
 obj-y	+= cache-cp15.o
 endif
 
-obj-y	+= psci-dt.o
+#obj-y	+= psci-dt.o
 
 obj-$(CONFIG_DEBUG_LL)	+= debug.o
 

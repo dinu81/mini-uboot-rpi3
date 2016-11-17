@@ -27,6 +27,7 @@ __weak void reset_misc(void)
 {
 }
 
+#if 0
 int do_reset(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 {
 	puts ("resetting ...\n");
@@ -41,3 +42,4 @@ int do_reset(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 	/*NOTREACHED*/
 	return 0;
 }
+#endif 

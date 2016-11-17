@@ -12,7 +12,6 @@
 #include <fdt_simplefb.h>
 #include <lcd.h>
 #include <memalign.h>
-#include <mmc.h>
 #include <asm/gpio.h>
 #include <asm/arch/mbox.h>
 #include <asm/arch/sdhci.h>
