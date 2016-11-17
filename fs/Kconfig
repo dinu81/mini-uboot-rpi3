@@ -1,9 +1,0 @@
-#
-# File system configuration
-#
-
-menu "File systems"
-
-source "fs/fat/Kconfig"
-
-endmenu
