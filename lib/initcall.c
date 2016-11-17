@@ -13,6 +13,7 @@ DECLARE_GLOBAL_DATA_PTR;
 
 int initcall_run_list(const init_fnc_t init_sequence[])
 {
+    int count = 0;
 	const init_fnc_t *init_fnc_ptr;
 
 	for (init_fnc_ptr = init_sequence; *init_fnc_ptr; ++init_fnc_ptr) {
@@ -34,8 +35,10 @@ int initcall_run_list(const init_fnc_t init_sequence[])
 			printf("initcall sequence %p failed at call %p (err=%d)\n",
 			       init_sequence,
 			       (char *)*init_fnc_ptr - reloc_ofs, ret);
+            printf ("Initcall failed - %d\n", count++);
 			return -1;
 		}
 	}
+    printf ("Initcall completed - %d\n", count++);
 	return 0;
 }

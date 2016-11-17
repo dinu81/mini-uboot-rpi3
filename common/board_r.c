@@ -85,24 +85,6 @@ __weak int board_flash_wp_on(void)
 	return 0;
 }
 
-__weak void cpu_secondary_init_r(void)
-{
-}
-
-static int initr_secondary_cpu(void)
-{
-	/*
-	 * after non-volatile devices & environment is setup and cpu code have
-	 * another round to deal with any initialization that might require
-	 * full access to the environment or loading of some image (firmware)
-	 * from a non-volatile device
-	 */
-	/* TODO: maybe define this for all archs? */
-	cpu_secondary_init_r();
-
-	return 0;
-}
-
 static int initr_trace(void)
 {
 
@@ -232,54 +214,15 @@ static int initr_mmc(void)
 }
 #endif
 
-
-/*
- * Tell if it's OK to load the environment early in boot.
- *
- * If CONFIG_OF_CONTROL is defined, we'll check with the FDT to see
- * if this is OK (defaulting to saying it's OK).
- *
- * NOTE: Loading the environment early can be a bad idea if security is
- *       important, since no verification is done on the environment.
- *
- * @return 0 if environment should not be loaded, !=0 if it is ok to load
- */
-static int should_load_env(void)
-{
-	return 1;
-}
-
 static int initr_env(void)
 {
-	/* initialize environment */
-	if (should_load_env())
-		env_relocate();
-	else
-		set_default_env(NULL);
+    env_relocate();
 
 	/* Initialize from environment */
 	ulong load_addr = 0; 
         load_addr = getenv_ulong("loadaddr", 16, load_addr);
 	return 0;
 }
-
-
-static int initr_jumptable(void)
-{
-	jumptable_init();
-	return 0;
-}
-
-/* enable exceptions */
-#if defined(CONFIG_ARM) || defined(CONFIG_AVR32)
-static int initr_enable_interrupts(void)
-{
-	enable_interrupts();
-	return 0;
-}
-#endif
-
-
 
 static int run_main_loop(void)
 {
@@ -319,29 +262,25 @@ init_fnc_t init_sequence_r[] = {
 	stdio_init_tables,
 	initr_serial,
 	initr_announce,
-	INIT_FUNC_WATCHDOG_RESET
 	power_init_board,
 #ifdef CONFIG_GENERIC_MMC
 	initr_mmc,
 #endif
 	initr_env,
-	initr_secondary_cpu,
-	INIT_FUNC_WATCHDOG_RESET
+    /* Dinesh without this rainbow */
 	stdio_add_devices,
-	initr_jumptable,
+    /* Dinesh Very Important */
 	console_init_r,		/* fully init console as a device */
-	interrupt_init,
-#if defined(CONFIG_ARM) || defined(CONFIG_AVR32)
-	initr_enable_interrupts,
-#endif
 	run_main_loop,
 };
 
 void board_init_r(gd_t *new_gd, ulong dest_addr)
 {
+    int count = 0;
 
-	if (initcall_run_list(init_sequence_r))
+	if (initcall_run_list(init_sequence_r)) {
 		hang();
+    }
 
 	/* NOTREACHED - run_main_loop() does not return */
 	hang();
