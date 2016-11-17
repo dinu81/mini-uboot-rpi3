@@ -199,20 +199,6 @@ init_fnc_t init_sequence_r[] = {
 	initr_reloc_global_data,
 	initr_barrier,
 	initr_malloc,
-#if 0
-	initr_console_record,
-	bootstage_relocate,
-#ifdef CONFIG_DM
-	initr_dm,
-#endif
-	initr_bootstage,
-#if defined(CONFIG_ARM) || defined(CONFIG_NDS32)
-	board_init,	/* Setup chipselects */
-#endif
-	stdio_init_tables,
-	initr_serial,
-	initr_announce,
-#endif 
 #ifdef CONFIG_GENERIC_MMC
     /* Dinesh: without this blank screen */
 	initr_mmc,

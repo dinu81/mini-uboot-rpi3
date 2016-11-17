@@ -108,12 +108,6 @@ comment "Commands"
 
 menu "Info commands"
 
-config CMD_CONSOLE
-	bool "coninfo"
-	default y
-	help
-	  Print console devices and information.
-
 config CMD_CPU
 	bool "cpu"
 	help
@@ -150,6 +144,7 @@ config CMD_AMBAPP
 
 config SYS_AMBAPP_PRINT_ON_STARTUP
 	bool "Show AMBA PnP info on startup"
+
 	depends on CMD_AMBAPP
 	default n
 	help
