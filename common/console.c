@@ -891,10 +891,12 @@ int console_init_r(void)
 	stdio_print_current_devices();
 #endif /* CONFIG_SYS_CONSOLE_INFO_QUIET */
 
+#if 0
 	/* Setting environment variables */
 	for (i = 0; i < 3; i++) {
 		setenv(stdio_names[i], stdio_devices[i]->name);
 	}
+#endif 
 
 	gd->flags |= GD_FLG_DEVINIT;	/* device initialization completed */
 
