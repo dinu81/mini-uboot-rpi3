@@ -114,7 +114,6 @@ config AUTOBOOT_STOP_STR_SHA256
 
 endmenu
 
-source "cmd/fastboot/Kconfig"
 
 comment "Commands"
 
