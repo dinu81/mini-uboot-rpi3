@@ -455,6 +455,7 @@ int board_init(void)
 #ifndef CONFIG_PL01X_SERIAL
 static bool rpi_is_serial_active(void)
 {
+#if 0
 	int serial_gpio = 15;
 	struct udevice *dev;
 
@@ -469,6 +470,7 @@ static bool rpi_is_serial_active(void)
 	if (bcm2835_gpio_get_func_id(dev, serial_gpio) != BCM2835_GPIO_ALT5)
 		return false;
 
+#endif
 	return true;
 }
 #endif
@@ -476,9 +478,11 @@ static bool rpi_is_serial_active(void)
 int board_early_init_f(void)
 {
 #ifndef CONFIG_PL01X_SERIAL
+#if 0
 	/* Disable mini-UART I/O if it's not pinmuxed to our pins */
 	if (!rpi_is_serial_active())
 		serial_platdata.disabled = true;
+#endif 
 #endif
 
 	return 0;
