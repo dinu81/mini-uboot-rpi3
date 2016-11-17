@@ -126,12 +126,6 @@ static int initr_reloc_global_data(void)
 	return 0;
 }
 
-static int initr_serial(void)
-{
-	serial_initialize();
-	return 0;
-}
-
 static int initr_barrier(void)
 {
 	return 0;
@@ -152,15 +146,6 @@ static int initr_malloc(void)
 	return 0;
 }
 
-static int initr_console_record(void)
-{
-#if defined(CONFIG_CONSOLE_RECORD)
-	return console_record_init();
-#else
-	return 0;
-#endif
-}
-
 #ifdef CONFIG_SYS_NONCACHED_MEMORY
 static int initr_noncached(void)
 {
@@ -168,42 +153,6 @@ static int initr_noncached(void)
 	return 0;
 }
 #endif
-
-#ifdef CONFIG_DM
-static int initr_dm(void)
-{
-	int ret;
-
-	/* Save the pre-reloc driver model and start a new one */
-	gd->dm_root_f = gd->dm_root;
-	gd->dm_root = NULL;
-	ret = dm_init_and_scan(false);
-	if (ret)
-		return ret;
-
-	return 0;
-}
-#endif
-
-static int initr_bootstage(void)
-{
-	/* We cannot do this before initr_dm() */
-	bootstage_mark_name(BOOTSTAGE_ID_START_UBOOT_R, "board_init_r");
-
-	return 0;
-}
-
-__weak int power_init_board(void)
-{
-	return 0;
-}
-
-static int initr_announce(void)
-{
-	debug("Now running in RAM - U-Boot at: %08lx\n", gd->relocaddr);
-	return 0;
-}
-
 
 #ifdef CONFIG_GENERIC_MMC
 static int initr_mmc(void)
@@ -250,6 +199,7 @@ init_fnc_t init_sequence_r[] = {
 	initr_reloc_global_data,
 	initr_barrier,
 	initr_malloc,
+#if 0
 	initr_console_record,
 	bootstage_relocate,
 #ifdef CONFIG_DM
@@ -262,8 +212,9 @@ init_fnc_t init_sequence_r[] = {
 	stdio_init_tables,
 	initr_serial,
 	initr_announce,
-	power_init_board,
+#endif 
 #ifdef CONFIG_GENERIC_MMC
+    /* Dinesh: without this blank screen */
 	initr_mmc,
 #endif
 	initr_env,
@@ -276,8 +227,6 @@ init_fnc_t init_sequence_r[] = {
 
 void board_init_r(gd_t *new_gd, ulong dest_addr)
 {
-    int count = 0;
-
 	if (initcall_run_list(init_sequence_r)) {
 		hang();
     }
