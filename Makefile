@@ -820,11 +820,6 @@ ifeq ($(CONFIG_DM_I2C_COMPAT)$(CONFIG_SANDBOX),y)
 	@echo "before sending patches to the mailing list."
 	@echo "===================================================="
 endif
-	@# Check that this build does not use CONFIG options that we do not
-	@# know about unless they are in Kconfig. All the existing CONFIG
-	@# options are whitelisted, so new ones should not be added.
-	$(srctree)/scripts/check-config.sh u-boot.cfg \
-		$(srctree)/scripts/config_whitelist.txt ${srctree} 1>&2
 
 PHONY += dtbs
 dtbs: dts/dt.dtb

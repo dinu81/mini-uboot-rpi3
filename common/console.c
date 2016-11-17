@@ -835,7 +835,6 @@ done:
 int console_init_r(void)
 {
 	struct stdio_dev *inputdev = NULL, *outputdev = NULL;
-	int i;
 	struct list_head *list = stdio_get_list();
 	struct list_head *pos;
 	struct stdio_dev *dev;

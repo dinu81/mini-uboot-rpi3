@@ -111,6 +111,7 @@
 #endif 
 #define CONFIG_BAUDRATE			115200
 
+#define CONFIG_SYS_PROMPT       "U-Boot> "
 /* Console configuration */
 #define CONFIG_SYS_CBSIZE		1024
 #define CONFIG_SYS_PBSIZE		(CONFIG_SYS_CBSIZE +		\

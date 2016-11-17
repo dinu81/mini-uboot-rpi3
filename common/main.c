@@ -17,5 +17,6 @@
 void main_loop(void)
 {
     printf ("Dinesh: We will wait here\n");
+    printf ("Dinesh: We will wait here - test 2\n");
     for (;;);
 }
