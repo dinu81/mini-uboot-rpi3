@@ -9,10 +9,10 @@
 ifndef CONFIG_SPL_BUILD
 obj-y += init/
 obj-y += main.o
-obj-y += exports.o
+#obj-y += exports.o
 obj-y += hash.o
 obj-$(CONFIG_HUSH_PARSER) += cli_hush.o
-obj-$(CONFIG_AUTOBOOT) += autoboot.o
+#obj-$(CONFIG_AUTOBOOT) += autoboot.o
 
 # This option is not just y/n - it can have a numeric value
 ifdef CONFIG_BOOT_RETRY_TIME
@@ -71,7 +71,7 @@ obj-$(CONFIG_CONSOLE_MUX) += iomux.o
 obj-$(CONFIG_CMD_KGDB) += kgdb.o kgdb_stubs.o
 obj-$(CONFIG_I2C_EDID) += edid.o
 obj-$(CONFIG_KALLSYMS) += kallsyms.o
-obj-y += splash.o
+#obj-y += splash.o
 obj-$(CONFIG_SPLASH_SOURCE) += splash_source.o
 ifndef CONFIG_DM_VIDEO
 obj-$(CONFIG_LCD) += lcd.o lcd_console.o
@@ -171,10 +171,10 @@ endif
 # We always have this since drivers/ddr/fs/interactive.c needs it
 obj-$(CONFIG_CMDLINE) += cli_simple.o
 
-obj-y += cli.o
+#obj-y += cli.o
 obj-$(CONFIG_CMDLINE) += cli_readline.o
 obj-$(CONFIG_CMD_DFU) += dfu.o
-obj-y += command.o
+#obj-y += command.o
 #obj-y += s_record.o
 #obj-y += xyzModem.o
 

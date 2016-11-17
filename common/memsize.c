@@ -9,15 +9,7 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
-#ifdef __PPC__
-/*
- * At least on G2 PowerPC cores, sequential accesses to non-existent
- * memory must be synchronized.
- */
-# include <asm/io.h>	/* for sync() */
-#else
 # define sync()		/* nothing */
-#endif
 
 /*
  * Check memory range for valid RAM. A simple memory test determines
