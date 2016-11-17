@@ -30,9 +30,9 @@ obj-$(CONFIG_DISPLAY_BOARDINFO_LATE) += board_info.o
 #obj-$(CONFIG_CMD_BOOTI) += bootm.o bootm_os.o
 
 # environment
-obj-y += env_attr.o
-obj-y += env_callback.o
-obj-y += env_flags.o
+#obj-y += env_attr.o
+#obj-y += env_callback.o
+#obj-y += env_flags.o
 obj-$(CONFIG_ENV_IS_IN_DATAFLASH) += env_dataflash.o
 obj-$(CONFIG_ENV_IS_IN_EEPROM) += env_eeprom.o
 extra-$(CONFIG_ENV_IS_EMBEDDED) += env_embedded.o
@@ -124,7 +124,7 @@ obj-$(CONFIG_SCSI) += scsi.o
 endif
 endif
 #environment
-obj-y += env_common.o
+#obj-y += env_common.o
 #others
 obj-$(CONFIG_DDR_SPD) += ddr_spd.o
 obj-$(CONFIG_SPD_EEPROM) += ddr_spd.o

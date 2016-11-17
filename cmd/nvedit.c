@@ -286,6 +286,7 @@ static int _do_env_set(int flag, int argc, char * const argv[], int env_flag)
 
 int setenv(const char *varname, const char *varvalue)
 {
+#if 0
 	const char * const argv[4] = { "setenv", varname, varvalue, NULL };
 
 	/* before import into hashtable */
@@ -296,6 +297,8 @@ int setenv(const char *varname, const char *varvalue)
 		return _do_env_set(0, 2, (char * const *)argv, H_PROGRAMMATIC);
 	else
 		return _do_env_set(0, 3, (char * const *)argv, H_PROGRAMMATIC);
+#endif 
+    return 0;
 }
 
 /**
@@ -618,6 +621,7 @@ static int do_env_edit(cmd_tbl_t *cmdtp, int flag, int argc,
 #endif /* CONFIG_CMD_EDITENV */
 #endif /* CONFIG_SPL_BUILD */
 
+#if 0
 /*
  * Look up variable from environment,
  * return address of storage for that variable,
@@ -681,26 +685,7 @@ int getenv_f(const char *name, char *buf, unsigned len)
 
 	return -1;
 }
-
-/**
- * Decode the integer value of an environment variable and return it.
- *
- * @param name		Name of environemnt variable
- * @param base		Number base to use (normally 10, or 16 for hex)
- * @param default_val	Default value to return if the variable is not
- *			found
- * @return the decoded value, or default_val if not found
- */
-ulong getenv_ulong(const char *name, int base, ulong default_val)
-{
-	/*
-	 * We can use getenv() here, even before relocation, since the
-	 * environment variable value is an integer and thus short.
-	 */
-	const char *str = getenv(name);
-
-	return str ? simple_strtoul(str, NULL, base) : default_val;
-}
+#endif 
 
 #ifndef CONFIG_SPL_BUILD
 #if defined(CONFIG_CMD_SAVEENV) && !defined(CONFIG_ENV_IS_NOWHERE)
@@ -721,6 +706,7 @@ U_BOOT_CMD(
 #endif /* CONFIG_SPL_BUILD */
 
 
+#if 0
 /*
  * Match a name / name=value pair
  *
@@ -742,6 +728,7 @@ int envmatch(uchar *s1, int i2)
 
 	return -1;
 }
+#endif 
 
 #ifndef CONFIG_SPL_BUILD
 static int do_env_default(cmd_tbl_t *cmdtp, int __flag,

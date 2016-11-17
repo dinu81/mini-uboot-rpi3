@@ -1198,9 +1198,11 @@ int fdtdec_setup(void)
 	}
 # endif
 # ifndef CONFIG_SPL_BUILD
+#if 0
 	/* Allow the early environment to override the fdt address */
 	gd->fdt_blob = (void *)getenv_ulong("fdtcontroladdr", 16,
 						(uintptr_t)gd->fdt_blob);
+#endif 
 # endif
 #endif
 	return fdtdec_prepare_fdt();

@@ -28,8 +28,10 @@ void env_relocate_spec(void)
  */
 int env_init(void)
 {
+#if 0
 	gd->env_addr	= (ulong)&default_environment[0];
 	gd->env_valid	= 0;
 
+#endif 
 	return 0;
 }

@@ -115,14 +115,6 @@ const char *bootdelay_process(void)
 	unsigned long bootlimit = 0;
 #endif /* CONFIG_BOOTCOUNT_LIMIT */
 
-#ifdef CONFIG_BOOTCOUNT_LIMIT
-	bootcount = bootcount_load();
-	bootcount++;
-	bootcount_store(bootcount);
-	setenv_ulong("bootcount", bootcount);
-	bootlimit = getenv_ulong("bootlimit", 10, 0);
-#endif /* CONFIG_BOOTCOUNT_LIMIT */
-
 	s = getenv("bootdelay");
 	bootdelay = s ? (int)simple_strtol(s, NULL, 10) : CONFIG_BOOTDELAY;
 

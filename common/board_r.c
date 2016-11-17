@@ -165,11 +165,6 @@ static int initr_mmc(void)
 
 static int initr_env(void)
 {
-    env_relocate();
-
-	/* Initialize from environment */
-	ulong load_addr = 0; 
-        load_addr = getenv_ulong("loadaddr", 16, load_addr);
 	return 0;
 }
 

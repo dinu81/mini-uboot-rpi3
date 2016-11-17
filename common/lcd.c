@@ -172,9 +172,7 @@ int drv_lcd_init(void)
 void lcd_clear(void)
 {
 	int bg_color;
-	char *s;
-	ulong addr;
-	static int do_splash = 1;
+
 #if LCD_BPP == LCD_COLOR8
 	/* Setting the palette */
 	lcd_setcolreg(CONSOLE_COLOR_BLACK, 0, 0, 0);
@@ -222,17 +220,6 @@ void lcd_clear(void)
 			 panel_info.vl_rot);
 	/* Paint the logo and retrieve LCD base address */
 	debug("[LCD] Drawing the logo...\n");
-	if (do_splash) {
-		s = getenv("splashimage");
-		if (s) {
-			do_splash = 0;
-			addr = simple_strtoul(s, NULL, 16);
-			if (lcd_splash(addr) == 0) {
-				lcd_sync();
-				return;
-			}
-		}
-	}
 
 	lcd_logo();
 #if defined(CONFIG_LCD_LOGO) && !defined(CONFIG_LCD_INFO_BELOW_LOGO)

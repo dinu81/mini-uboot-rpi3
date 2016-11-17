@@ -339,8 +339,6 @@ source "common/Kconfig"
 
 source "cmd/Kconfig"
 
-source "dts/Kconfig"
-
 source "drivers/Kconfig"
 
 source "lib/Kconfig"

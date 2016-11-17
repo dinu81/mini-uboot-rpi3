@@ -107,12 +107,6 @@ __weak void board_add_ram_info(int use_default)
 	/* please define platform specific board_add_ram_info() */
 }
 
-static int init_baud_rate(void)
-{
-	gd->baudrate = getenv_ulong("baudrate", 10, CONFIG_BAUDRATE);
-	return 0;
-}
-
 static int display_text_info(void)
 {
 	ulong bss_start, bss_end, text_base;
@@ -516,7 +510,9 @@ static init_fnc_t init_sequence_f[] = {
 	timer_init,		/* initialize timer */
 #endif
 	env_init,		/* initialize environment */
+#if 0
 	init_baud_rate,		/* initialze baudrate settings */
+#endif 
 	serial_init,		/* serial communications setup */
 	console_init_f,		/* stage 1 init of console */
 	display_options,	/* say that we are here */
