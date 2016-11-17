@@ -877,8 +877,6 @@ endchoice
 
 source "arch/arm/mach-bcm283x/Kconfig"
 
-source "arch/arm/cpu/armv8/fsl-layerscape/Kconfig"
-
 source "arch/arm/cpu/armv7/Kconfig"
 
 source "arch/arm/cpu/armv8/Kconfig"
