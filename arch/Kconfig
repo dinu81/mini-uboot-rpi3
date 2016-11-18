@@ -16,7 +16,6 @@ config ARC
 config ARM
 	bool "ARM architecture"
 	select CREATE_ARCH_SYMLINK
-	select HAVE_PRIVATE_LIBGCC if !ARM64
 	select SUPPORT_OF_CONTROL
 
 config AVR32
