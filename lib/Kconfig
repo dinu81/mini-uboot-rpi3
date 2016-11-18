@@ -54,7 +54,6 @@ config LIB_RAND
 
 source lib/dhry/Kconfig
 
-source lib/rsa/Kconfig
 
 config TPM
 	bool "Trusted Platform Module (TPM) Support"
@@ -196,7 +195,5 @@ config SMBIOS_PRODUCT_NAME
 
 endmenu
 
-source lib/efi/Kconfig
-source lib/efi_loader/Kconfig
 
 endmenu
