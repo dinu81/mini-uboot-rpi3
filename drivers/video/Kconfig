@@ -432,8 +432,6 @@ config VIDEO_TEGRA124
 	   enables this support which can be used on devices which
 	   have an eDP display connected.
 
-source "drivers/video/bridge/Kconfig"
-
 config VIDEO
 	bool "Enable legacy video support"
 	depends on !DM_VIDEO
