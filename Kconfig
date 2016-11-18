@@ -340,5 +340,3 @@ source "common/Kconfig"
 source "drivers/Kconfig"
 
 source "lib/Kconfig"
-
-source "test/Kconfig"
