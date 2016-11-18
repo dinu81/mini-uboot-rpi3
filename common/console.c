@@ -7,12 +7,9 @@
 
 #include <common.h>
 #include <console.h>
-#include <debug_uart.h>
 #include <stdarg.h>
-#include <iomux.h>
 #include <malloc.h>
 #include <os.h>
-#include <serial.h>
 #include <stdio_dev.h>
 #include <exports.h>
 #include <environment.h>

@@ -18,7 +18,6 @@
 #include <mapmem.h>
 #include <watchdog.h>
 #include <asm/unaligned.h>
-#include <splash.h>
 #include <asm/io.h>
 #include <asm/unaligned.h>
 #include <video_font.h>

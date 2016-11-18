@@ -16,7 +16,6 @@
 #include <stdarg.h>
 #include <malloc.h>
 #include <stdio_dev.h>
-#include <serial.h>
 #ifdef CONFIG_LOGBUFFER
 #include <logbuff.h>
 #endif

@@ -24,7 +24,6 @@
 #if defined(CONFIG_CMD_IDE)
 #include <ide.h>
 #endif
-#include <i2c.h>
 #include <initcall.h>
 #include <logbuff.h>
 #include <malloc.h>

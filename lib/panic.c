@@ -23,7 +23,9 @@ static void panic_finish(void)
 	hang();
 #else
 	udelay(100000);	/* allow messages to go out */
+#if 0
 	do_reset(NULL, 0, 0, NULL);
+#endif 
 #endif
 	while (1)
 		;
