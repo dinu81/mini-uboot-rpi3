@@ -444,11 +444,6 @@ static void get_board_rev(void)
 }
 #endif 
 
-int board_early_init_f(void)
-{
-	return 0;
-}
-
 int board_mmc_init(bd_t *bis)
 {
 	ALLOC_CACHE_ALIGN_BUFFER(struct msg_get_clock_rate, msg_clk, 1);
