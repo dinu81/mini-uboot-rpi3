@@ -45,53 +45,6 @@
  */
 DECLARE_GLOBAL_DATA_PTR;
 
-static int display_text_info(void)
-{
-	ulong bss_start, bss_end, text_base;
-
-	bss_start = (ulong)&__bss_start;
-	bss_end = (ulong)&__bss_end;
-
-	text_base = CONFIG_SYS_TEXT_BASE;
-
-	debug("U-Boot code: %08lX -> %08lX  BSS: -> %08lX\n",
-		text_base, bss_start, bss_end);
-
-	return 0;
-}
-
-static int announce_dram_init(void)
-{
-	puts("DRAM:  ");
-	return 0;
-}
-
-
-static int show_dram_config(void)
-{
-#if 0
-	unsigned long long size;
-
-	int i;
-
-	debug("\nRAM Configuration:\n");
-	for (i = size = 0; i < CONFIG_NR_DRAM_BANKS; i++) {
-		size += gd->bd->bi_dram[i].size;
-		debug("Bank #%d: %llx ", i,
-		      (unsigned long long)(gd->bd->bi_dram[i].start));
-#ifdef DEBUG
-		print_size(gd->bd->bi_dram[i].size, "\n");
-#endif
-	}
-	debug("\nDRAM:  ");
-
-	print_size(size, "");
-	board_add_ram_info(0);
-	putc('\n');
-#endif
-	return 0;
-}
-
 __weak void dram_init_banksize(void)
 {
 	gd->bd->bi_dram[0].start = CONFIG_SYS_SDRAM_BASE;
@@ -167,23 +120,6 @@ static int reserve_round_4k(void)
 	gd->relocaddr &= ~(4096 - 1);
 	return 0;
 }
-
-static int reserve_mmu(void)
-{
-	/* reserve TLB table */
-	gd->arch.tlb_size = PGTABLE_SIZE;
-	gd->relocaddr -= gd->arch.tlb_size;
-
-	/* round down to next 64 kB limit */
-	gd->relocaddr &= ~(0x10000 - 1);
-
-	gd->arch.tlb_addr = gd->relocaddr;
-	debug("TLB table from %08lx to %08lx\n", gd->arch.tlb_addr,
-	      gd->arch.tlb_addr + gd->arch.tlb_size);
-
-	return 0;
-}
-
 
 static int reserve_lcd(void)
 {
@@ -279,14 +215,6 @@ static int setup_reloc(void)
 	return 0;
 }
 
-/* Record the board_init_f() bootstage (after arch_cpu_init()) */
-static int mark_bootstage(void)
-{
-	bootstage_mark_name(BOOTSTAGE_ID_START_UBOOT_F, "board_init_f");
-
-	return 0;
-}
-
 static int initf_dm(void)
 {
 	int ret;
@@ -302,21 +230,12 @@ static init_fnc_t init_sequence_f[] = {
 	setup_mon_len,
 	initf_malloc,
 	initf_dm,
-	mark_bootstage,		/* need timer, go after init dm */
-	board_early_init_f,
 	/* TODO: can any of this go into arch_cpu_init()? */
-	timer_init,		/* initialize timer */
-	serial_init,		/* serial communications setup */
 	console_init_f,		/* stage 1 init of console */
-	display_options,	/* say that we are here */
-	display_text_info,	/* show debugging info if required */
-	print_cpuinfo,		/* display cpu info (and speed) */
-	announce_dram_init,
 	/* TODO: unify all these dram functions? */
 	dram_init,		/* configure available RAM banks */
 	setup_dest_addr,
 	reserve_round_4k,
-	reserve_mmu,
 	reserve_lcd,
 	reserve_uboot,
 	reserve_malloc,
@@ -324,7 +243,6 @@ static init_fnc_t init_sequence_f[] = {
 	reserve_global_data,
 	reserve_stacks,
 	setup_dram_config,
-	show_dram_config,
 	INIT_FUNC_WATCHDOG_RESET
 	setup_reloc,
 	NULL,

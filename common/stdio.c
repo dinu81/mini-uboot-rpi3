@@ -58,6 +58,7 @@ static int nulldev_input(struct stdio_dev *dev)
 }
 #endif
 
+#if 0
 static void stdio_serial_putc(struct stdio_dev *dev, const char c)
 {
 	serial_putc(c);
@@ -77,39 +78,12 @@ static int stdio_serial_tstc(struct stdio_dev *dev)
 {
 	return serial_tstc();
 }
-
+#endif 
 /**************************************************************************
  * SYSTEM DRIVERS
  **************************************************************************
  */
 
-static void drv_system_init (void)
-{
-	struct stdio_dev dev;
-
-	memset (&dev, 0, sizeof (dev));
-
-	strcpy (dev.name, "serial");
-	dev.flags = DEV_FLAGS_OUTPUT | DEV_FLAGS_INPUT;
-	dev.putc = stdio_serial_putc;
-	dev.puts = stdio_serial_puts;
-	dev.getc = stdio_serial_getc;
-	dev.tstc = stdio_serial_tstc;
-	stdio_register (&dev);
-
-#ifdef CONFIG_SYS_DEVICE_NULLDEV
-	memset (&dev, 0, sizeof (dev));
-
-	strcpy (dev.name, "nulldev");
-	dev.flags = DEV_FLAGS_OUTPUT | DEV_FLAGS_INPUT;
-	dev.putc = nulldev_putc;
-	dev.puts = nulldev_puts;
-	dev.getc = nulldev_input;
-	dev.tstc = nulldev_input;
-
-	stdio_register (&dev);
-#endif
-}
 
 /**************************************************************************
  * DEVICES
@@ -385,8 +359,10 @@ int stdio_add_devices(void)
 #ifdef CONFIG_LOGBUFFER
 	drv_logbuff_init ();
 #endif
+#if 0
 	drv_system_init ();
 	serial_stdio_init ();
+#endif 
 #ifdef CONFIG_USB_TTY
 	drv_usbtty_init ();
 #endif

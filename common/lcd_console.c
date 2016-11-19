@@ -158,12 +158,6 @@ void lcd_init_console(void *address, int vl_cols, int vl_rows, int vl_rot)
 
 void lcd_putc(const char c)
 {
-	if (!lcd_is_enabled) {
-		serial_putc(c);
-
-		return;
-	}
-
 	switch (c) {
 	case '\r':
 		cons.curr_col = 0;
@@ -195,12 +189,6 @@ void lcd_putc(const char c)
 
 void lcd_puts(const char *s)
 {
-	if (!lcd_is_enabled) {
-		serial_puts(s);
-
-		return;
-	}
-
 	while (*s)
 		lcd_putc(*s++);
 

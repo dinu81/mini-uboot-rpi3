@@ -308,8 +308,6 @@ config TARGET_MX35PDK
 config ARCH_BCM283X
 	bool "Broadcom BCM283X family"
 	select DM
-	select DM_SERIAL
-	select DM_GPIO
 
 config TARGET_VEXPRESS_CA15_TC2
 	bool "Support vexpress_ca15_tc2"

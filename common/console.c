@@ -125,8 +125,8 @@ static int console_setfile(int file, struct stdio_dev * dev)
 		 */
 		switch (file) {
 		case stdin:
-			gd->jt->getc = getc;
-			gd->jt->tstc = tstc;
+		//	gd->jt->getc = getc;
+		//	gd->jt->tstc = tstc;
 			break;
 		case stdout:
 			gd->jt->putc  = putc;
@@ -357,57 +357,6 @@ int fprintf(int file, const char *fmt, ...)
 
 /** U-Boot INITIAL CONSOLE-COMPATIBLE FUNCTION *****************************/
 
-int getc(void)
-{
-#ifdef CONFIG_DISABLE_CONSOLE
-	if (gd->flags & GD_FLG_DISABLE_CONSOLE)
-		return 0;
-#endif
-
-	if (!gd->have_console)
-		return 0;
-
-#ifdef CONFIG_CONSOLE_RECORD
-	if (gd->console_in.start) {
-		int ch;
-
-		ch = membuff_getbyte(&gd->console_in);
-		if (ch != -1)
-			return 1;
-	}
-#endif
-	if (gd->flags & GD_FLG_DEVINIT) {
-		/* Get from the standard input */
-		return fgetc(stdin);
-	}
-
-	/* Send directly to the handler */
-	return serial_getc();
-}
-
-int tstc(void)
-{
-#ifdef CONFIG_DISABLE_CONSOLE
-	if (gd->flags & GD_FLG_DISABLE_CONSOLE)
-		return 0;
-#endif
-
-	if (!gd->have_console)
-		return 0;
-#ifdef CONFIG_CONSOLE_RECORD
-	if (gd->console_in.start) {
-		if (membuff_peekbyte(&gd->console_in) != -1)
-			return 1;
-	}
-#endif
-	if (gd->flags & GD_FLG_DEVINIT) {
-		/* Test the standard input */
-		return ftstc(stdin);
-	}
-
-	/* Send directly to the handler */
-	return serial_tstc();
-}
 
 #define PRE_CONSOLE_FLUSHPOINT1_SERIAL			0
 #define PRE_CONSOLE_FLUSHPOINT2_EVERYTHING_BUT_SERIAL	1
@@ -494,9 +443,11 @@ void putc(const char c)
 		/* Send to the standard output */
 		fputc(stdout, c);
 	} else {
+#if 0
 		/* Send directly to the handler */
 		pre_console_putc(c);
 		serial_putc(c);
+#endif 
 	}
 }
 
@@ -539,9 +490,11 @@ void puts(const char *s)
 		/* Send to the standard output */
 		fputs(stdout, s);
 	} else {
+#if 0
 		/* Send directly to the handler */
 		pre_console_puts(s);
 		serial_puts(s);
+#endif 
 	}
 }
 
@@ -571,74 +524,6 @@ void console_record_reset_enable(void)
 }
 #endif
 
-/* test if ctrl-c was pressed */
-static int ctrlc_disabled = 0;	/* see disable_ctrl() */
-static int ctrlc_was_pressed = 0;
-int ctrlc(void)
-{
-#ifndef CONFIG_SANDBOX
-	if (!ctrlc_disabled && gd->have_console) {
-		if (tstc()) {
-			switch (getc()) {
-			case 0x03:		/* ^C - Control C */
-				ctrlc_was_pressed = 1;
-				return 1;
-			default:
-				break;
-			}
-		}
-	}
-#endif
-
-	return 0;
-}
-/* Reads user's confirmation.
-   Returns 1 if user's input is "y", "Y", "yes" or "YES"
-*/
-int confirm_yesno(void)
-{
-	int i;
-	char str_input[5];
-
-	/* Flush input */
-	while (tstc())
-		getc();
-	i = 0;
-	while (i < sizeof(str_input)) {
-		str_input[i] = getc();
-		putc(str_input[i]);
-		if (str_input[i] == '\r')
-			break;
-		i++;
-	}
-	putc('\n');
-	if (strncmp(str_input, "y\r", 2) == 0 ||
-	    strncmp(str_input, "Y\r", 2) == 0 ||
-	    strncmp(str_input, "yes\r", 4) == 0 ||
-	    strncmp(str_input, "YES\r", 4) == 0)
-		return 1;
-	return 0;
-}
-/* pass 1 to disable ctrlc() checking, 0 to enable.
- * returns previous state
- */
-int disable_ctrlc(int disable)
-{
-	int prev = ctrlc_disabled;	/* save previous state */
-
-	ctrlc_disabled = disable;
-	return prev;
-}
-
-int had_ctrlc (void)
-{
-	return ctrlc_was_pressed;
-}
-
-void clear_ctrlc(void)
-{
-	ctrlc_was_pressed = 0;
-}
 
 /** U-Boot INIT FUNCTIONS *************************************************/
 
@@ -737,6 +622,7 @@ void stdio_print_current_devices(void)
 /* Called after the relocation - use desired console functions */
 int console_init_r(void)
 {
+#if 0
 	char *stdinname, *stdoutname, *stderrname;
 	struct stdio_dev *inputdev = NULL, *outputdev = NULL, *errdev = NULL;
 #ifdef CONFIG_SYS_CONSOLE_ENV_OVERWRITE
@@ -824,6 +710,7 @@ done:
 #endif
 	print_pre_console_buffer(PRE_CONSOLE_FLUSHPOINT2_EVERYTHING_BUT_SERIAL);
 	return 0;
+#endif 
 }
 
 #else /* CONFIG_SYS_CONSOLE_IS_IN_ENV */
